@@ -1,4 +1,6 @@
-.PHONY: default all configure-backend build-backend build-frontend clean veryclean
+.PHONY: default all clean veryclean
+
+PHONY :=
 
 THIS_MAKE_FILE     := $(abspath $(lastword $(MAKEFILE_LIST)))
 THIS_MAKE_FILE_DIR := $(realpath $(patsubst %/,%,$(dir $(THIS_MAKE_FILE))))
@@ -11,6 +13,7 @@ PROJ_DIR  := $(THIS_MAKE_FILE_DIR)
 FRNT_DIR  := $(PROJ_DIR)/frontend
 BACK_DIR  := $(PROJ_DIR)/backend
 
+PHONY += default all
 default: all
 
 all:
@@ -29,9 +32,8 @@ $(BACK_BUILD_DIR):
 	         -D CMAKE_CXX_COMPILER=$(CXX) \
 	         -D CMAKE_EXPORT_COMPILE_COMMANDS=true
 
-$(BACK_EXEC):
-	$(CMAKE) --build $(BACK_BUILD_DIR)
-
+PHONY += build-backend configure-backend reconfigure-backend run-backend
+PHONY += clean-backend veryclean-backend
 clean-backend:
 	$(RM) $(BACK_BUILD_DIR)
 
@@ -42,18 +44,16 @@ configure-backend: $(BACK_BUILD_DIR)
 
 reconfigure-backend: clean-backend configure-backend
 
-build-backend: configure-backend $(BACK_EXEC)
+build-backend: configure-backend
+	$(CMAKE) --build $(BACK_BUILD_DIR)
 
-run-backend:
+run-backend: build-backend
 	@exec $(BACK_EXEC)
 
-# Front-end targets
-
-build-frontend:
-
-# Utility targets:
+# === Utility targets:
 
 clean: clean-backend
 
 veryclean: clean
 
+.PHONY: $(PHONY)
