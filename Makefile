@@ -53,6 +53,9 @@ run-backend: build-backend
 check-backend:
 	$(CMAKE) --build $(BACK_BUILD_DIR) --target tidy
 
+format-backend:
+	$(CMAKE) --build $(BACK_BUILD_DIR) --target format
+
 # === Utility targets:
 
 clean: clean-backend
