@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.0)
 project(todothis CXX)
 enable_language(CXX)
 
+include(ExternalProject)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
@@ -14,11 +16,22 @@ file(GLOB_RECURSE PROJECT_HEADERS CONFIGURE_DEPENDS "${PROJECT_INCLUDE_DIR}/${PR
 
 add_executable(${PROJECT_NAME})
 
+ExternalProject_Add(spdlog
+    INSTALL_COMMAND ""
+    SOURCE_DIR ${PROJECT_THIRDPARTY_DIR}/spdlog
+    CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+    -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+    -DSPDLOG_BUILD_SHARED=false
+    -DSPDLOG_BUILD_EXAMPLES=false
+)
+
+add_dependencies(${PROJECT_NAME} spdlog)
+
 target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE ${PROJECT_INCLUDE_DIR}
-    PRIVATE ${PROJECT_SOURCES_DIR}
+    PRIVATE ${PROJECT_THIRDPARTY_DIR}/spdlog/include
     )
 
 # TODO: Add release configuration
@@ -46,4 +59,5 @@ if(CLANG_FORMAT_EXEC)
 else()
     message(WARNING "clang-format not found")
 endif()
+
 
