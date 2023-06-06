@@ -50,6 +50,9 @@ build-backend: configure-backend
 run-backend: build-backend
 	@exec $(BACK_EXEC)
 
+check-backend:
+	$(CMAKE) --build $(BACK_BUILD_DIR) --target tidy
+
 # === Utility targets:
 
 clean: clean-backend
