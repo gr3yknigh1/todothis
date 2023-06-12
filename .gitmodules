@@ -1,6 +1,8 @@
-[submodule "backend/thirdparty/spdlog"]
+[submodule "./backend/thirdparty/spdlog/"]
 	path = backend/thirdparty/spdlog
 	url = https://github.com/gabime/spdlog
-	branch = ad0e89c
-[submodule "./backend/thirdparty/spdlog/"]
 	branch = v1.11.0
+[submodule "./backend/thirdparty/cpp-httplib/"]
+	path = ./backend/thirdparty/cpp-httplib/
+	url = https://github.com/yhirose/cpp-httplib
+	branch = v0.12.6
