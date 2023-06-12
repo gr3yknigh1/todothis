@@ -16,13 +16,16 @@ file(GLOB_RECURSE PROJECT_HEADERS CONFIGURE_DEPENDS "${PROJECT_INCLUDE_DIR}/${PR
 
 add_executable(${PROJECT_NAME})
 
+find_package(SQLite3)
+include_directories(${SQLite3_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${SQLite3_LIBRARIES})
+
 ExternalProject_Add(spdlog
     INSTALL_COMMAND ""
     SOURCE_DIR ${PROJECT_THIRDPARTY_DIR}/spdlog
     CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
     -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
     -DSPDLOG_BUILD_SHARED=false
-    -DSPDLOG_BUILD_EXAMPLES=false
 )
 
 add_dependencies(${PROJECT_NAME} spdlog)
