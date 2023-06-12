@@ -22,7 +22,6 @@ ExternalProject_Add(spdlog
     CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
     -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
     -DSPDLOG_BUILD_SHARED=false
-    -DSPDLOG_BUILD_EXAMPLES=false
 )
 
 add_dependencies(${PROJECT_NAME} spdlog)
