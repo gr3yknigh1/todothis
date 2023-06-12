@@ -3,3 +3,8 @@
 	url = https://github.com/yhirose/cpp-httplib
 [submodule "./backend/thirdparty/cpp-httplib/"]
 	branch = tags/v0.12.6
+[submodule "backend/thirdparty/spdlog"]
+	path = backend/thirdparty/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "./backend/thirdparty/spdlog/"]
+	branch = tags/v1.11.0
