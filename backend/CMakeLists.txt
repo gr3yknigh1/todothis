@@ -24,13 +24,22 @@ ExternalProject_Add(spdlog
     -DSPDLOG_BUILD_SHARED=false
 )
 
+ExternalProject_Add(httplib
+    INSTALL_COMMAND ""
+    SOURCE_DIR ${PROJECT_THIRDPARTY_DIR}/cpp-httplib
+    CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+    -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+)
+
 add_dependencies(${PROJECT_NAME} spdlog)
+add_dependencies(${PROJECT_NAME} httplib)
 
 target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE ${PROJECT_INCLUDE_DIR}
     PRIVATE ${PROJECT_THIRDPARTY_DIR}/spdlog/include
+    PRIVATE ${PROJECT_THIRDPARTY_DIR}/cpp-httplib
     )
 
 # TODO: Add release configuration
