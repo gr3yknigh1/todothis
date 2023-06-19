@@ -10,13 +10,29 @@ RM    := rm -rf
 
 PROJ_NAME := todothis
 PROJ_DIR  := $(THIS_MAKE_FILE_DIR)
-FRNT_DIR  := $(PROJ_DIR)/frontend
 BACK_DIR  := $(PROJ_DIR)/backend
+FRONT_DIR  := $(PROJ_DIR)/frontend
 
 PHONY += default all
 default: all
 
 all:
+
+# === Front-end targets
+JS_SETUP_CMD   := pnpm install
+JS_BUILD_CMD   := pnpm build
+JS_RUN_DEV_CMD := pnpm run dev
+
+configure-frontend:
+	cd $(FRONT_DIR); $(JS_SETUP_CMD)
+
+build-frontend:
+	cd $(FRONT_DIR); $(JS_BUILD_CMD)
+
+run-dev-frontend:
+	cd $(FRONT_DIR); $(JS_RUN_DEV_CMD)
+
+PHONY += configure-frontend build-frontend run-dev-frontend
 
 # === Back-end targets
 CXX   := /bin/clang++
